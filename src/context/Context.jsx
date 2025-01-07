@@ -22,14 +22,20 @@ const ContextProvider = (props) => {
         setResultData("")
         setLoading(true)
         setShowResult(true)
-        setRecentPrompt(input)
-        setPrevPrompts(prev => [...prev, input])
-        const response = await run(input)
-        let responseArray = response.split("**")
-        let newResponse;
-        for(let i = 0; i < responseArray.length; i++) {
-            if ( i % 2 == 0 ) {
-                newResponse += responseArray[i]
+        let response;
+        if (prompt !== undefined) {
+            setRecentPrompt(prompt)
+            response = await run(prompt)
+            } else {
+                setRecentPrompt(input)
+                response = await run(input)
+                setPrevPrompts(prev => [...prev, input])
+            }
+            let responseArray = response.split("**")
+            let newResponse = "";
+            for(let i = 0; i < responseArray.length; i++) {
+                if ( i % 2 == 0 ) {
+                    newResponse += responseArray[i]
             } else {
                 newResponse += '<b>' + responseArray[i] + '</b>'
             }
@@ -41,6 +47,7 @@ const ContextProvider = (props) => {
         }
         setLoading(false)
         setInput("")
+        console.log(prevPrompts)
     }
 
     const contextValue = {

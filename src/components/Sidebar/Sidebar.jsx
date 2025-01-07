@@ -7,8 +7,8 @@ import { Context } from '../../context/Context'
 const Sidebar = () => {
   const [extended, setExtended] = useState(false)
   
-  const { prevPrompts } = useContext(Context)
-  
+  const { prevPrompts, onSent, setPrevPrompts } = useContext(Context)
+
   return (
       <div className='sidebar' >
         <div className="top">
@@ -27,7 +27,9 @@ const Sidebar = () => {
           <p className="recent-title">Recent</p>
           {prevPrompts.map(item => {
             return (
-              <div className="recent-entry">
+              <div 
+                className="recent-entry"
+                onClick={() => onSent(item)} >
                 <img src={assets.message_icon} alt="" />
                 <p>{item.slice(0, 18)} ...</p>
               </div>
