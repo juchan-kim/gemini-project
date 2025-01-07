@@ -9,13 +9,6 @@ const Sidebar = () => {
   
   const { prevPrompts } = useContext(Context)
   
-  const prompts = prevPrompts.map(promp => {(
-      <>
-      <img src={assets.message_icon} alt="" />
-      <p>{prompt}</p>
-      </>
-  )})
-
   return (
       <div className='sidebar' >
         <div className="top">
@@ -36,7 +29,7 @@ const Sidebar = () => {
             return (
               <div className="recent-entry">
                 <img src={assets.message_icon} alt="" />
-                <p>{item} ...</p>
+                <p>{item.slice(0, 18)} ...</p>
               </div>
             )
           })}
